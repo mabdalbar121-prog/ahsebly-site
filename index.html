@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>احسبلي — برنامج كاشير ومخزن وحسابات للمحلات (ويندوز)</title>
+<meta name="description" content="احسبلي: برنامج للكمبيوتر لإدارة المحلات بالعربي. فواتير وباركود وطباعة حرارية ومخزن ومشتريات وديون وتقارير أرباح وتقفيل الدرج. للسوبر ماركت والملابس والسباكة والمطاعم وغيرها.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
+  --brand:#3730a3; --brand-2:#4f46e5; --gold:#f59e0b; --wa:#16a34a; --wa-d:#15803d;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1020; --card:#131a2e; --ink:#eef2ff; --muted:#a5b0c8; --line:#26304d; --brand:#a5b4fc; --brand-2:#818cf8; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Cairo',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{font-weight:800;font-size:22px;color:var(--brand);text-decoration:none;letter-spacing:.2px}
+.logo small{font-weight:600;font-size:13px;color:var(--muted);margin-right:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:12px 22px;font:700 16px 'Cairo',sans-serif;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 6px 18px rgba(22,163,74,.28)}
+.btn-wa:hover{background:var(--wa-d);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--brand);border:2px solid var(--brand)}
+.btn-ghost:hover{background:var(--brand);color:#fff}
+.hero{padding:56px 0 36px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.kicker{display:inline-block;background:color-mix(in srgb,var(--gold) 20%,transparent);color:#92400e;border-radius:999px;padding:4px 14px;font-weight:700;font-size:14px}
+@media (prefers-color-scheme: dark){.kicker{color:#fcd34d}}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.3;margin:14px 0 14px;font-weight:800}
+h1 em{font-style:normal;color:var(--brand-2)}
+.lead{font-size:19px;color:var(--muted);margin:0 0 24px;max-width:34em}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.note{font-size:14px;color:var(--muted);margin-top:14px}
+.shot{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.14)}
+.shot .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.shot .bar i{width:10px;height:10px;border-radius:50%;background:#cbd5e1;display:block}
+.shot img{display:block;width:100%;height:auto}
+section{padding:44px 0}
+h2{font-size:clamp(24px,3.4vw,34px);margin:0 0 8px;font-weight:800}
+.sub{color:var(--muted);margin:0 0 28px;font-size:17px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px}
+.card h3{margin:0 0 6px;font-size:18px;color:var(--brand)}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-weight:700}
+.shots{grid-template-columns:repeat(2,1fr)}
+.shots figure{margin:0}
+.shots figcaption{padding:10px 4px 0;color:var(--muted);font-size:15px;font-weight:600}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;position:relative}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;margin-bottom:10px}
+@media (prefers-color-scheme: dark){.step::before{color:#0b1020}}
+.step h3{margin:0 0 4px;font-size:18px}
+.step p{margin:0;color:var(--muted)}
+.band{background:var(--brand);color:#fff;border-radius:22px;padding:34px 28px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+@media (prefers-color-scheme: dark){.band{background:#1e2a55}}
+.band h2{margin:0;color:#fff}
+.band p{margin:4px 0 0;opacity:.9}
+footer{padding:36px 0 90px;color:var(--muted);font-size:15px;border-top:1px solid var(--line);margin-top:30px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer a{color:var(--brand)}
+.float{position:fixed;left:18px;bottom:18px;z-index:30;border-radius:999px;padding:14px 20px}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .g3,.steps,.shots{grid-template-columns:1fr}
+  .logo small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">احسبلي<small>برنامج الكمبيوتر</small></a>
+    <a class="btn btn-wa" href="https://wa.me/201001094380?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%A3%D9%83%D8%AA%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D8%AD%D8%B3%D8%A8%D9%84%D9%8A%20%D9%84%D9%84%D9%83%D9%85%D8%A8%D9%8A%D9%88%D8%AA%D8%B1" rel="noopener">كلّمنا على واتساب</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">للكمبيوتر · ويندوز · بالعربي</span>
+      <h1>احسبلي… <em>كاشير ومخزن وحسابات</em> لمحلك في برنامج واحد</h1>
+      <p class="lead">بيع بسرعة، اطبع فاتورتك على أي طابعة حرارية، وتابع مخزنك وديونك وأرباحك لحظة بلحظة. من غير تعقيد ومن غير ما تحتاج إنترنت.</p>
+      <div class="cta">
+        <a class="btn btn-wa" href="https://wa.me/201001094380?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%A3%D9%83%D8%AA%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D8%AD%D8%B3%D8%A8%D9%84%D9%8A%20%D9%84%D9%84%D9%83%D9%85%D8%A8%D9%8A%D9%88%D8%AA%D8%B1" rel="noopener">اسأل على واتساب</a>
+        <a class="btn btn-ghost" href="#shots">شوف البرنامج</a>
+      </div>
+      <p class="note">كلّمنا ونوريك البرنامج ونجاوب على أسئلتك. الدعم الفني بالعربي.</p>
+    </div>
+    <div class="shot" aria-hidden="false">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <img src="img/pos.jpg" alt="شاشة نقطة البيع في برنامج احسبلي: أصناف المخزن وفاتورة البيع" width="1440" height="810">
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>كل اللي محلك محتاجه</h2>
+    <p class="sub">مصمم لأصحاب المحلات في مصر، بخطوات بسيطة وشكل مألوف.</p>
+    <div class="grid g3">
+      <div class="card"><h3>نقطة بيع سريعة</h3><p>بحث بالاسم أو الباركود، أسعار قطاعي وجملة، خصم على الصنف أو الفاتورة، وبيع نقدي أو آجل.</p></div>
+      <div class="card"><h3>طباعة الفاتورة</h3><p>طباعة مباشرة على الطابعات الحرارية 58 و80 مم، وفاتورة A4 وA5، وإرسال الفاتورة للعميل على واتساب.</p></div>
+      <div class="card"><h3>مخزن ومشتريات</h3><p>أصناف وأقسام ووحدات (كرتونة، دستة…)، فواتير شراء وحسابات الموردين، وجرد وتنبيهات النواقص.</p></div>
+      <div class="card"><h3>ديون وأقساط</h3><p>دفتر ديون العملاء والموردين، أقساط، وكشوف حساب جاهزة للطباعة.</p></div>
+      <div class="card"><h3>تقارير وأرباح</h3><p>مبيعات وأرباح اليوم والشهر والسنة، ومصروفات، وملخص يومي بكلام بسيط.</p></div>
+      <div class="card"><h3>حركة البيع وتقفيل الدرج</h3><p>راجع عمليات اليوم فاتورة فاتورة، واحسب المتوقع في الدرج، واطبع ريسيت التقفيل.</p></div>
+      <div class="card"><h3>حسابات وصلاحيات</h3><p>مستخدمين بصلاحيات مختلفة (مالك، مدير، كاشير)، وسجل بكل عملية.</p></div>
+      <div class="card"><h3>نسخ احتياطي</h3><p>نسخ تلقائي على جهازك وعلى السحابة، واسترجاع بياناتك لو جهازك اتغيّر.</p></div>
+      <div class="card"><h3>شغال من غير إنترنت</h3><p>تبيع وتطبع وتحاسب حتى لو النت قطع، والإنترنت للنسخ السحابي بس.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="types">
+  <div class="wrap">
+    <h2>لكل نوع محل ما يناسبه</h2>
+    <p class="sub">البرنامج بيتشكّل حسب نشاطك، وبيعرض لك الخانات والتقارير اللي تفيدك بس.</p>
+    <div class="chips">
+      <span class="chip">سوبر ماركت وبقالة</span><span class="chip">ملابس</span><span class="chip">أدوات صحية وسباكة</span>
+      <span class="chip">مستلزمات طبية وصيدليات</span><span class="chip">حلويات ومخابز</span><span class="chip">عطارة</span>
+      <span class="chip">أقمشة</span><span class="chip">مطاعم وكافيهات</span><span class="chip">محلات عامة</span>
+    </div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="wrap">
+    <h2>شوف البرنامج من جوه</h2>
+    <p class="sub">لقطات حقيقية من البرنامج (ببيانات تجريبية).</p>
+    <div class="grid shots">
+      <figure><div class="shot"><img loading="lazy" src="img/pos.jpg" alt="نقطة البيع" width="1440" height="810"></div><figcaption>نقطة البيع: أصناف وفاتورة في شاشة واحدة</figcaption></figure>
+      <figure><div class="shot"><img loading="lazy" src="img/daymove.jpg" alt="حركة البيع وتقفيل الدرج" width="1440" height="810"></div><figcaption>حركة البيع وتقفيل الدرج: المتوقع في الدرج مقابل الفعلي</figcaption></figure>
+      <figure><div class="shot"><img loading="lazy" src="img/reports.jpg" alt="تقارير الأرباح" width="1440" height="810"></div><figcaption>تقارير الأرباح وجرد الحسابات</figcaption></figure>
+      <figure><div class="shot"><img loading="lazy" src="img/invoice.jpg" alt="معاينة الفاتورة قبل الطباعة" width="1440" height="810"></div><figcaption>معاينة الفاتورة والطباعة على الطابعة الحرارية</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>إزاي تبدأ؟</h2>
+    <p class="sub">ثلاث خطوات بسيطة.</p>
+    <div class="steps">
+      <div class="step"><h3>كلّمنا</h3><p>ابعت لنا على واتساب نوع محلك، ونرد عليك ونجاوب على أسئلتك.</p></div>
+      <div class="step"><h3>ركّب البرنامج</h3><p>بنساعدك في التثبيت وضبط الطابعة والباركود على جهازك.</p></div>
+      <div class="step"><h3>ابدأ البيع</h3><p>ضيف أصنافك أو استوردها، وابدأ أول فاتورة.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="band">
+      <div><h2>عندك سؤال عن برنامج الكمبيوتر؟</h2><p>اكتب لنا على واتساب ونرد عليك.</p></div>
+      <a class="btn btn-wa" href="https://wa.me/201001094380" rel="noopener">واتساب: 01001094380</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© احسبلي — محمد علي عبد البر</div>
+    <div><a href="privacy.html">سياسة الخصوصية</a> · <a href="mailto:m.abdalbar121@gmail.com">m.abdalbar121@gmail.com</a> · <a href="https://play.google.com/store/apps/details?id=com.ahsebly.cashier" rel="noopener">تطبيق احسبلي كاشير على جوجل بلاي</a></div>
+  </div>
+</footer>
+
+<a class="btn btn-wa float" href="https://wa.me/201001094380" rel="noopener" aria-label="تواصل على واتساب">واتساب</a>
+</body>
+</html>
